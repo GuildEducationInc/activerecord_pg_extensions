@@ -7,3 +7,6 @@ module ActiveRecordPgExtensions
     end
   end
 end
+
+ActiveRecord::ConnectionAdapters::PostgreSQL::TableDefinition.include(ActiveRecordPgExtensions::Enum::ColumnMethods)
+ActiveRecord::ConnectionAdapters::PostgreSQL::Table.include(ActiveRecordPgExtensions::Enum::ColumnMethods)

@@ -1,6 +1,7 @@
 # Adds support for PostgreSQL custom enums
 # https://www.postgresql.org/docs/9.6/static/datatype-enum.html
 
+require 'active_record/connection_adapters/postgresql_adapter'
 require 'activerecord_pg_extensions/enum/schema_dumper'
 require 'activerecord_pg_extensions/enum/schema_statements'
 require 'activerecord_pg_extensions/enum/column_methods'
@@ -8,7 +9,6 @@ require 'activerecord_pg_extensions/enum/column_methods'
 module ActiveRecordPgExtensions
   module Enum
     include SchemaStatements
-    include ColumnMethods
 
     ENUM_TYPE_QUERY = <<~SQL.freeze
       SELECT t.typname AS enum_name,
@@ -43,6 +43,4 @@ module ActiveRecordPgExtensions
   end
 end
 
-require('active_record/connection_adapters/postgresql_adapter')
 ActiveRecord::ConnectionAdapters::PostgreSQLAdapter.prepend(ActiveRecordPgExtensions::Enum)
-ActiveRecord::SchemaDumper.prepend(ActiveRecordPgExtensions::Enum::SchemaDumper) if defined? ActiveRecord::SchemaDumper

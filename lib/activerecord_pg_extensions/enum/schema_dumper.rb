@@ -24,3 +24,5 @@ module ActiveRecordPgExtensions
     end
   end
 end
+
+ActiveRecord::SchemaDumper.prepend(ActiveRecordPgExtensions::Enum::SchemaDumper) if defined? ActiveRecord::SchemaDumper
