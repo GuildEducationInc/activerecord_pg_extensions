@@ -1,9 +1,13 @@
 AllCops:
   TargetRubyVersion: 2.4
+  Exclude:
+    - bin/**/*
 Documentation:
   Enabled: false
 Metrics/LineLength:
   Max: 120
+Style/BlockDelimiters:
+  Enabled: false
 Style/FrozenStringLiteralComment:
   Enabled: false
 Style/GuardClause:
