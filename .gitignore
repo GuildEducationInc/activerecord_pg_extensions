@@ -8,6 +8,9 @@
 /pkg/
 /spec/reports/
 /tmp/
+/.idea/
+
+.rakeTasks
 
 # rspec failure tracking
 .rspec_status

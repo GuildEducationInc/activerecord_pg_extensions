@@ -6,8 +6,8 @@ require 'activerecord_pg_extensions/version'
 Gem::Specification.new do |spec|
   spec.name          = 'activerecord_pg_extensions'
   spec.version       = ActiveRecordPgExtensions::VERSION
-  spec.authors       = ['Stafford Brunk']
-  spec.email         = ['stafford@guildeducation.com']
+  spec.authors       = ['Stafford Brunk', 'Josh Mattila']
+  spec.email         = ['stafford@guildeducation.com', 'josh.mattila@guildeducation.com']
 
   spec.summary       = 'Collection of PostgreSQL specific extensions to ActiveRecord'
   spec.description   = 'Extensions to ActiveRecord\'s PostgreSQL adapter to enable additional functionality'
@@ -18,13 +18,13 @@ Gem::Specification.new do |spec|
   end
   spec.require_paths = ['lib']
 
-  spec.add_dependency 'activerecord', '>= 4.2.0'
-  spec.add_dependency 'pg'
+  spec.add_dependency 'activerecord', '>= 5.0.7'
+  spec.add_dependency 'pg', '>= 1.1.4'
 
   spec.add_development_dependency 'appraisal', '~> 2.2'
-  spec.add_development_dependency 'bundler', '~> 1.14'
-  spec.add_development_dependency 'rake', '~> 10.0'
-  spec.add_development_dependency 'rspec', '~> 3.0'
-  spec.add_development_dependency 'rspec-rails', '~> 3.0'
-  spec.add_development_dependency 'rubocop', '>= 0.50.0'
+  spec.add_development_dependency 'bundler', '~> 1.17'
+  spec.add_development_dependency 'rake', '~> 11.3'
+  spec.add_development_dependency 'rspec', '~> 3.9'
+  spec.add_development_dependency 'rspec-rails', '~> 3.9'
+  spec.add_development_dependency 'rubocop', '>= 0.78.0'
 end

@@ -2,6 +2,7 @@
 # https://www.postgresql.org/docs/9.6/static/datatype-enum.html
 
 require 'active_record/connection_adapters/postgresql_adapter'
+require 'active_record/connection_adapters/postgresql/oid'
 require 'activerecord_pg_extensions/enum/schema_dumper'
 require 'activerecord_pg_extensions/enum/schema_statements'
 require 'activerecord_pg_extensions/enum/column_methods'
@@ -24,14 +25,6 @@ module ActiveRecordPgExtensions
       super.merge(enum: { name: 'enum' })
     end
 
-    # Adds +:array+ option to the default set
-    def prepare_column_options(column)
-      spec = super
-      spec[:type] = "\"#{column.sql_type}\"" if column.type == :enum
-      spec[:array] = 'true' if column.array?
-      spec
-    end
-
     def enum_types
       query = ENUM_TYPE_QUERY
       res = exec_query(query, 'SCHEMA').cast_values
@@ -39,6 +32,12 @@ module ActiveRecordPgExtensions
         line[1] = line[1].split(' ')
       end
       res
+    end
+
+    def add_enum_types_to_map
+      exec_query(ENUM_TYPE_QUERY, 'SCHEMA').rows.map(&:first).each do |type_name|
+        @type_map.register_type type_name, ActiveRecord::ConnectionAdapters::PostgreSQL::OID::Enum.new
+      end
     end
   end
 end

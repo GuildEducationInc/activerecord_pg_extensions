@@ -12,7 +12,15 @@ module ActiveRecordPgExtensions
 
       private
 
+      def prepare_column_options(column)
+        spec = super
+        spec[:type] = "\"#{column.sql_type}\"" if column.type == :enum
+        spec
+      end
+
       def enums(stream)
+        @connection.add_enum_types_to_map
+
         enum_types = @connection.enum_types
         if enum_types.any?
           enum_types.each do |enum_type|
@@ -25,4 +33,4 @@ module ActiveRecordPgExtensions
   end
 end
 
-ActiveRecord::SchemaDumper.prepend(ActiveRecordPgExtensions::Enum::SchemaDumper) if defined? ActiveRecord::SchemaDumper
+ActiveRecord::ConnectionAdapters::SchemaDumper.prepend(ActiveRecordPgExtensions::Enum::SchemaDumper) if defined? ActiveRecord::ConnectionAdapters::SchemaDumper
